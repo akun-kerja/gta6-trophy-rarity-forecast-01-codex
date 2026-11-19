@@ -6,10 +6,10 @@
 
 An offline Python standard-library forecaster for the 55 PlayStation trophies. It models the rate in logit space, fits available per-trophy history against tracked-player counts, and adjusts for cohort dilution and trophy completion difficulty. Uncertainty widens with the forecast horizon and trophy tier/visibility.
 
-Run the required Node entrypoint with Node 22 and Python 3 available:
+Run the Python 3 entrypoint (standard library only):
 
 ```sh
-MAKEFUN_INPUT_DIR=input MAKEFUN_OUTPUT_DIR=out node main.ts
+MAKEFUN_INPUT_DIR=input MAKEFUN_OUTPUT_DIR=out python3 -P -s main.py
 ```
 
 The program reads every `.in` file in the input directory and writes a compact `.out` file per case. It uses no network, model calls, or third-party packages.

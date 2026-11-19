@@ -3,6 +3,7 @@
 import json
 import math
 import os
+from datetime import datetime
 from pathlib import Path
 
 IN = Path(os.environ.get("MAKEFUN_INPUT_DIR", "/input"))
@@ -30,8 +31,8 @@ def predict(case):
     # Estimate the next observed cohort size. The rules disclose the first
     # refresh at 04:30Z (3,868 tracked); later forecasts use a conservative
     # exponential audience-growth prior from the release timestamp.
-    at_hours = ( __import__("datetime").datetime.fromisoformat(case["at"].replace("Z", "+00:00")) -
-                 __import__("datetime").datetime.fromisoformat(case["game"]["release_date"] + "T00:00:00+00:00")).total_seconds() / 3600
+    at_hours = (datetime.fromisoformat(case["at"].replace("Z", "+00:00")) -
+                datetime.fromisoformat(case["game"]["release_date"] + "T00:00:00+00:00")).total_seconds() / 3600
     target_hours = at_hours + case["horizon_minutes"] / 60.0
     if tracks[-1] < 3868 and target_hours <= 6:
         expected = 3868.0
